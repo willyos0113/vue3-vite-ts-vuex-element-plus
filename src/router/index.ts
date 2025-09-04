@@ -8,8 +8,20 @@ const routes: Array<RouteRecordRaw> = [
   // 定義路由 "/"
   {
     path: "/",
-    name: "home",
+    name: "Home",
     component: () => import("../views/Home.vue"),
+  },
+  // 定義路由 "/register"
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("../views/Register.vue"),
+  },
+  // 定義沒有匹配到路由時...
+  {
+    path: "/:catchAll(.*)",
+    name: "404",
+    component: () => import("../views/404.vue"),
   },
 ];
 
