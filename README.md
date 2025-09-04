@@ -1,6 +1,6 @@
-# Vue 3 + TypeScript + Vite + ElementPlus + Vuex Practice Project
+## Vue 3 + TypeScript + Vite + ElementPlus + Vuex Practice Project
 
-## progress(keep updating)
+### progress(keep updating)
 
 - create Vue Router
 - import Element Plus package
