@@ -1,14 +1,55 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { reactive, ref } from "vue";
+import { type RegisterType, type RegisterRulesType } from "../utils/types";
 
-// 定義響應數據
-const registerUser = ref({
-  name: "米斯特王",
+// 定義響應變數
+const registerUser = ref<RegisterType>({
+  name: "Mr.王",
   email: "willyos0113@gmail.com",
   password: "123456",
   password2: "123456",
   identity: "管理員",
 });
+
+// 確認密碼驗證方法
+const validatePass2 = (rule: any, value: string, callback: any) => {
+  if (value === "") {
+    callback(new Error("請重新輸入密碼"));
+  } else if (value !== registerUser.value.password) {
+    callback(new Error("兩次密碼不一致"));
+  } else {
+    callback();
+  }
+};
+
+// 表單欄位驗證規則
+const rules = reactive<RegisterRulesType>({
+  name: [
+    { required: true, message: "用戶名不得為空", trigger: "change" },
+    { min: 2, max: 30, message: "長度必須為2~30字元", trigger: "blur" },
+  ],
+  email: [
+    {
+      required: true,
+      type: "email",
+      message: "郵件地址格式不正確",
+      trigger: "blur",
+    },
+  ],
+  password: [
+    { required: true, message: "密碼不得為空", trigger: "blur" },
+    { min: 6, max: 30, message: "長度必須為6~30字元", trigger: "blur" },
+  ],
+  password2: [
+    { min: 6, max: 30, message: "長度必須為6~30字元", trigger: "blur" },
+    { validator: validatePass2, trigger: "blur" },
+  ],
+});
+
+// 測試註冊按鈕
+const handleSubmit = () => {
+  console.log(registerUser.value);
+};
 </script>
 
 <template>
@@ -17,7 +58,8 @@ const registerUser = ref({
       <div class="manage-tip">
         <span class="title">後台管理系統</span>
         <el-form
-          v-model="registerUser"
+          :rules="rules"
+          :model="registerUser"
           class="register-form"
           label-width="80px"
         >
@@ -52,7 +94,7 @@ const registerUser = ref({
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button class="submit-btn">註冊</el-button>
+            <el-button @click="handleSubmit" class="submit-btn">註冊</el-button>
           </el-form-item>
         </el-form>
       </div>
