@@ -11,7 +11,7 @@ const registerUser = ref<RegisterType>({
   identity: "管理員",
 });
 
-// 確認密碼驗證方法
+// 自定義驗證方法
 const validatePass2 = (rule: any, value: string, callback: any) => {
   if (value === "") {
     callback(new Error("請重新輸入密碼"));
