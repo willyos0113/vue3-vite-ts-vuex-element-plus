@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
 import { type RegisterType, type RegisterRulesType } from "../utils/types";
+import { type FormInstance } from "element-plus";
+import axios from "axios";
 
 // 定義響應變數
+const ruleFormRef = ref<FormInstance>();
 const registerUser = ref<RegisterType>({
   name: "Mr.王",
   email: "willyos0113@gmail.com",
@@ -46,9 +49,18 @@ const rules = reactive<RegisterRulesType>({
   ],
 });
 
-// 測試註冊按鈕
-const handleSubmit = () => {
-  console.log(registerUser.value);
+// 處理註冊表單提交
+const handleSubmit = (forEl: FormInstance | undefined) => {
+  if (!forEl) return;
+  // 調用 validate() 撰寫驗證邏輯
+  forEl.validate(async (valid: boolean) => {
+    if (valid) {
+      const { data } = await axios.post("");
+      console.log("submit!");
+    } else {
+      console.log("error submit!");
+    }
+  });
 };
 </script>
 
@@ -59,6 +71,7 @@ const handleSubmit = () => {
         <span class="title">後台管理系統</span>
         <el-form
           :rules="rules"
+          ref="ruleFormRef"
           :model="registerUser"
           class="register-form"
           label-width="80px"
@@ -79,12 +92,14 @@ const handleSubmit = () => {
             <el-input
               v-model="registerUser.password"
               placeholder="請輸入密碼"
+              type="password"
             ></el-input>
           </el-form-item>
           <el-form-item label="確認密碼" prop="password2">
             <el-input
               v-model="registerUser.password2"
               placeholder="請確認密碼"
+              type="password"
             ></el-input>
           </el-form-item>
           <el-form-item label="選擇身分">
@@ -94,7 +109,9 @@ const handleSubmit = () => {
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button @click="handleSubmit" class="submit-btn">註冊</el-button>
+            <el-button @click="handleSubmit(ruleFormRef)" class="submit-btn"
+              >註冊</el-button
+            >
           </el-form-item>
         </el-form>
       </div>
