@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 import { type RegisterType, type RegisterRulesType } from "../utils/types";
-import { type FormInstance } from "element-plus";
+import { type FormInstance, ElMessage } from "element-plus";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 // 定義響應變數
 const ruleFormRef = ref<FormInstance>();
+const router = useRouter();
 const registerUser = ref<RegisterType>({
   name: "Mr.王",
   email: "willyos0113@gmail.com",
@@ -52,13 +54,26 @@ const rules = reactive<RegisterRulesType>({
 // 處理註冊表單提交
 const handleSubmit = (forEl: FormInstance | undefined) => {
   if (!forEl) return;
-  // 調用 validate() 撰寫驗證邏輯
+
+  // 調用 validate( () => void ) 驗證邏輯
   forEl.validate(async (valid: boolean) => {
     if (valid) {
-      const { data } = await axios.post("");
-      console.log("submit!");
+      const { data } = await axios.post(
+        "/api/users/register",
+        registerUser.value
+      );
+      console.log(data);
+
+      // 調用 ElMessage( {config} ) 顯示成功訊息
+      ElMessage({
+        message: "使用者註冊成功",
+        type: "success",
+      });
+
+      // 調用 push(url) 實現頁面跳轉回首頁
+      router.push("/");
     } else {
-      console.log("error submit!");
+      console.log("submit error");
     }
   });
 };
