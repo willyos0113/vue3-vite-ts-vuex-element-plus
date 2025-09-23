@@ -17,6 +17,12 @@ const routes: Array<RouteRecordRaw> = [
     name: "Register",
     component: () => import("../views/Register.vue"),
   },
+  // 定義路由 "/login"
+  {
+    path: "/login",
+    name: "Login",
+    component: () => import("../views/Login.vue"),
+  },
   // 定義沒有匹配到路由時...
   {
     path: "/:catchAll(.*)",

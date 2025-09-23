@@ -1,13 +1,13 @@
 export interface RegisterType {
-  name: string;
+  name?: string;
   email: string;
   password: string;
-  password2: string;
-  identity: string;
+  password2?: string;
+  identity?: string;
 }
 
 export interface RegisterRulesType {
-  name: (
+  name?: (
     | {
         required: boolean;
         message: string;
@@ -39,7 +39,7 @@ export interface RegisterRulesType {
         trigger: string;
       }
   )[];
-  password2: (
+  password2?: (
     | {
         required: boolean;
         message: string;
