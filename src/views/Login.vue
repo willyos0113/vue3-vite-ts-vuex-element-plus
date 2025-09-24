@@ -29,7 +29,7 @@ const rules = reactive<RegisterRulesType>({
   ],
 });
 
-// 處理註冊表單提交
+// 處理登入表單提交(沿用註冊的函數)
 const handleSubmit = (forEl: FormInstance | undefined) => {
   if (!forEl) return;
 

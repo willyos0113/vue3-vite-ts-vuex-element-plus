@@ -31,8 +31,22 @@ const routes: Array<RouteRecordRaw> = [
   },
 ];
 
-// 導出路由 router
-export const router = createRouter({
+// 建立路由
+const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+router.beforeEach((to, from, next) => {
+  // 判斷使用者有無 token
+  const isLogin: boolean = localStorage.getItem("token") ? true : false;
+
+  // login 和 register 公開對外
+  if (to.path === "/login" || to.path === "/register") {
+    next();
+    // 其他頁面，要先判斷有無 token
+  } else {
+    isLogin ? next() : next("/login");
+  }
+});
+// 導出路由
+export { router };
