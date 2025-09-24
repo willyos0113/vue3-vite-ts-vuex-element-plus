@@ -37,13 +37,13 @@ const router = createRouter({
   routes,
 });
 router.beforeEach((to, from, next) => {
-  // 判斷使用者有無 token
+  // 驗證是否登入
   const isLogin: boolean = localStorage.getItem("token") ? true : false;
 
-  // login 和 register 公開對外
+  // 如果是登入或註冊頁面，直接放行
   if (to.path === "/login" || to.path === "/register") {
     next();
-    // 其他頁面，要先判斷有無 token
+    // 其他頁面需要驗證
   } else {
     isLogin ? next() : next("/login");
   }
