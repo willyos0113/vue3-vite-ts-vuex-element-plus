@@ -4,6 +4,7 @@ import { type RegisterType, type RegisterRulesType } from "../utils/types";
 import { type FormInstance } from "element-plus";
 import axios from "axios";
 import { useRouter } from "vue-router";
+import { jwtDecode } from "jwt-decode";
 
 // 定義響應變數
 const ruleFormRef = ref<FormInstance>();
@@ -44,8 +45,13 @@ const handleSubmit = (forEl: FormInstance | undefined) => {
       } = await axios.post("/api/users/login", loginUser.value);
 
       if (success && accessToken) {
-        // 將 token 儲存到 localStorage
+        // 將 token 存入 localStorage
         localStorage.setItem("token", accessToken);
+
+        // 解析 token
+        const decode = jwtDecode(accessToken);
+        console.log(decode);
+
         // 調用 ElMessage( {config} ) 顯示成功訊息
         // @ts-ignore
         ElMessage({
