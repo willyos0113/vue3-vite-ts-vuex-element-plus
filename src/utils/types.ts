@@ -1,3 +1,4 @@
+// 註冊表單資料型別
 export interface RegisterType {
   name?: string;
   email: string;
@@ -6,6 +7,7 @@ export interface RegisterType {
   identity?: string;
 }
 
+// 驗證規則
 export interface RegisterRulesType {
   name?: (
     | {
@@ -56,4 +58,14 @@ export interface RegisterRulesType {
         trigger: string;
       }
   )[];
+}
+
+// token 攜帶使用者資料型別
+export interface UserType {
+  exp: number;
+  iat: number;
+  id: string;
+  identity: string;
+  iss: string;
+  name: string;
 }

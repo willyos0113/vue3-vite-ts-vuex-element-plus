@@ -8,7 +8,6 @@ axios.interceptors.request.use(
     // 判斷是否攜帶 token
     if (localStorage.getItem("token")) {
       config.headers.Authorization = `Bearer ${localStorage.getItem("token")}`;
-    } else {
     }
     return config;
   },

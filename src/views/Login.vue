@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref } from "vue";
-import { type RegisterType, type RegisterRulesType } from "../utils/types";
+import type { RegisterType, RegisterRulesType, UserType } from "../utils/types";
 import { type FormInstance } from "element-plus";
 import axios from "axios";
 import { useRouter } from "vue-router";
@@ -51,7 +51,7 @@ const handleSubmit = (forEl: FormInstance | undefined) => {
         localStorage.setItem("token", accessToken);
 
         // 解析 token
-        const decode = jwtDecode(accessToken);
+        const decode: UserType = jwtDecode(accessToken);
         console.log(decode);
 
         // 將 token 更新至 store 狀態

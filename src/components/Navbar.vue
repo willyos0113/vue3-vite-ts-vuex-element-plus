@@ -11,9 +11,9 @@
           <p class="content welcome">歡迎</p>
           <p class="content username">Mr.王</p>
         </div>
-        <!-- 下拉選單 ( <el-dropdown> ) -->
         <span class="dropdown">
-          <el-dropdown type="primary" @click="handleDropDown">
+          <!-- 下拉選單 ( <el-dropdown> ) -->
+          <el-dropdown trigger="click" @command="handleDropDown">
             <!-- (1) 觸擊點 -->
             <span class="el-dropdown-link">
               <el-icon><ArrowDown /></el-icon>
@@ -21,8 +21,8 @@
             <!-- (2) 下拉選單內容 -->
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>個人資訊</el-dropdown-item>
-                <el-dropdown-item>登出</el-dropdown-item>
+                <el-dropdown-item command="info">個人資訊</el-dropdown-item>
+                <el-dropdown-item command="logout">登出</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -34,9 +34,40 @@
 
 <script setup lang="ts">
 import { ArrowDown } from "@element-plus/icons-vue";
+import { useAuthStore } from "../store";
+import { router } from "../router";
 
-const handleDropDown = () => {
-  console.log("點擊下拉選單");
+const store = useAuthStore();
+
+// 處理 dropdown 點擊事件
+const handleDropDown = (item: string) => {
+  // (1) 判斷 dropdown 點擊之項目
+  switch (item) {
+    case "info":
+      showUserInfo();
+      break;
+    case "logout":
+      logout();
+      break;
+  }
+};
+
+// 顯示個人資訊
+const showUserInfo = (): void => {
+  console.log("跳轉到個人資訊");
+};
+
+// 登出
+const logout = (): void => {
+  // (1) 清除 store 中的使用者登入狀態
+  store.setAuthenticated(false);
+  store.setUser(null);
+
+  // (2) 清除 localStorage 中的 token
+  localStorage.removeItem("token");
+
+  // (3) 跳轉到登入頁面
+  router.push("/login");
 };
 </script>
 

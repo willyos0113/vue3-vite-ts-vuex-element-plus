@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { type UserType } from "../utils/types";
 
 export const useAuthStore = defineStore("auth", {
   // 定義 isAuthenticated, user 狀態
@@ -19,7 +20,7 @@ export const useAuthStore = defineStore("auth", {
         this.isAuthenticated = false;
       }
     },
-    setUser(user: any) {
+    setUser(user: UserType | null) {
       if (user) {
         this.user = user;
       } else {

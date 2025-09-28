@@ -2,6 +2,7 @@
 import { watchEffect } from "vue";
 import { jwtDecode } from "jwt-decode";
 import { useAuthStore } from "./store";
+import type { UserType } from "./utils/types";
 
 const store = useAuthStore();
 
@@ -12,7 +13,7 @@ watchEffect(() => {
   const token = localStorage.getItem("token");
   if (token) {
     // 解析 token
-    const decode = jwtDecode(token);
+    const decode: UserType = jwtDecode(token);
 
     // 將 token 更新至 store 狀態
     store.setAuthenticated(!!decode);
