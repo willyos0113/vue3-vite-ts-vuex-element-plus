@@ -5,10 +5,12 @@ import { type FormInstance } from "element-plus";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { jwtDecode } from "jwt-decode";
+import { useAuthStore } from "../store";
 
 // 定義響應變數
 const ruleFormRef = ref<FormInstance>();
 const router = useRouter();
+const store = useAuthStore();
 const loginUser = ref<RegisterType>({
   email: "willyos0113@gmail.com",
   password: "123456",
@@ -51,6 +53,10 @@ const handleSubmit = (forEl: FormInstance | undefined) => {
         // 解析 token
         const decode = jwtDecode(accessToken);
         console.log(decode);
+
+        // 將 token 更新至 store 狀態
+        store.setAuthenticated(!!decode);
+        store.setUser(decode);
 
         // 調用 ElMessage( {config} ) 顯示成功訊息
         // @ts-ignore

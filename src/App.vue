@@ -1,4 +1,25 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { watchEffect } from "vue";
+import { jwtDecode } from "jwt-decode";
+import { useAuthStore } from "./store";
+
+const store = useAuthStore();
+
+// 監聽 localStorage 中 token 的變化，並更新 store 狀態
+// (因 token 非響應式，watchEffect 不會追蹤 token 的變化)
+watchEffect(() => {
+  // 讀取 localStorage 中的 token
+  const token = localStorage.getItem("token");
+  if (token) {
+    // 解析 token
+    const decode = jwtDecode(token);
+
+    // 將 token 更新至 store 狀態
+    store.setAuthenticated(!!decode);
+    store.setUser(decode);
+  }
+});
+</script>
 
 <template>
   <!-- 當使用者 URL 變更時，查詢 index.ts 中對應的元件並渲染它 -->

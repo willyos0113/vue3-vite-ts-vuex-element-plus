@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import axios from "../utils/http";
+import Navbar from "../components/Navbar.vue";
 
 onMounted(async () => {
   try {
@@ -13,7 +14,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="index">初始化頁面</div>
+  <div class="index">
+    <navbar />
+    初始化頁面
+  </div>
 </template>
 
 <style scoped></style>
