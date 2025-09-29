@@ -14,10 +14,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="index">
+  <div class="home">
     <navbar />
+    <router-view></router-view>
     初始化頁面
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.home {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+</style>

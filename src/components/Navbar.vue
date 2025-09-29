@@ -9,7 +9,7 @@
         <img src="../assets/default.jpg" class="avatar" alt="avatar" />
         <div class="welcome-content">
           <p class="content welcome">歡迎</p>
-          <p class="content username">Mr.王</p>
+          <p class="content username">{{ store.user?.name }}</p>
         </div>
         <span class="dropdown">
           <!-- 下拉選單 ( <el-dropdown> ) -->
@@ -37,7 +37,7 @@ import { ArrowDown } from "@element-plus/icons-vue";
 import { useAuthStore } from "../store";
 import { router } from "../router";
 
-const store = useAuthStore();
+const store: any = useAuthStore();
 
 // 處理 dropdown 點擊事件
 const handleDropDown = (item: string) => {
@@ -54,7 +54,8 @@ const handleDropDown = (item: string) => {
 
 // 顯示個人資訊
 const showUserInfo = (): void => {
-  console.log("跳轉到個人資訊");
+  // console.log("跳轉到個人資訊");
+  router.push("/userinfo");
 };
 
 // 登出

@@ -12,7 +12,7 @@ export const useAuthStore = defineStore("auth", {
     getUser: (state) => state.user,
   },
   actions: {
-    // 修改 isAuthenticated, user 狀態
+    // 修改 isAuthenticated 狀態
     setAuthenticated(isAuth: boolean) {
       if (isAuth) {
         this.isAuthenticated = isAuth;
@@ -20,6 +20,7 @@ export const useAuthStore = defineStore("auth", {
         this.isAuthenticated = false;
       }
     },
+    // 修改 user 狀態
     setUser(user: UserType | null) {
       if (user) {
         this.user = user;
