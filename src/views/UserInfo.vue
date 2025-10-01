@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useAuthStore } from "../store";
 
+// 取得 store 實例
 const store: any = useAuthStore();
 </script>
 

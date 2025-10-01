@@ -37,6 +37,7 @@ import { ArrowDown } from "@element-plus/icons-vue";
 import { useAuthStore } from "../store";
 import { router } from "../router";
 
+// 取得 store 實例
 const store: any = useAuthStore();
 
 // 處理 dropdown 點擊事件
